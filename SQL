@@ -1,0 +1,380 @@
+-- =====================================================
+-- HR EMPLOYEE ATTRITION DATABASE PROJECT
+-- =====================================================
+
+-
+-- USE DATABASE
+USE HR_Attrition_DB;
+
+    Age INT,
+    Attrition VARCHAR(10),
+    BusinessTravel VARCHAR(50),
+    DailyRate INT,
+    Department VARCHAR(100),
+    DistanceFromHome INT,
+    Education INT,
+    EducationField VARCHAR(100),
+    EmployeeCount INT,
+    EmployeeNumber INT PRIMARY KEY,
+    EnvironmentSatisfaction INT,
+    Gender VARCHAR(20),
+    HourlyRate INT,
+    JobInvolvement INT,
+    JobLevel INT,
+    JobRole VARCHAR(100),
+    JobSatisfaction INT,
+    MaritalStatus VARCHAR(50),
+    MonthlyIncome INT,
+    MonthlyRate INT,
+    NumCompaniesWorked INT,
+    Over18 VARCHAR(5),
+    OverTime VARCHAR(10),
+    PercentSalaryHike INT,
+    PerformanceRating INT,
+    RelationshipSatisfaction INT,
+    StandardHours INT,
+    StockOptionLevel INT,
+    TotalWorkingYears INT,
+    TrainingTimesLastYear INT,
+    WorkLifeBalance INT,
+    YearsAtCompany INT,
+    YearsInCurrentRole INT,
+    YearsSinceLastPromotion INT,
+    YearsWithCurrManager INT
+);
+
+-- =====================================================
+-- INSERT DATA
+-- =====================================================
+
+INSERT INTO Employee_Attrition VALUES
+(41,'Yes','Travel_Rarely',1102,'Sales',1,2,'Life Sciences',1,1,2,'Female',94,3,2,'Sales Executive',4,'Single',5993,19479,8,'Y','Yes',11,3,1,80,0,8,0,1,6,4,0,5),
+
+(49,'No','Travel_Frequently',279,'Research & Development',8,1,'Life Sciences',1,2,3,'Male',61,2,2,'Research Scientist',2,'Married',5130,24907,1,'Y','No',23,4,4,80,1,10,3,3,10,7,1,7),
+
+(37,'Yes','Travel_Rarely',1373,'Research & Development',2,2,'Other',1,4,4,'Male',92,2,1,'Laboratory Technician',3,'Single',2090,2396,6,'Y','Yes',15,3,2,80,0,7,3,3,0,0,0,0),
+
+(33,'No','Travel_Frequently',1392,'Research & Development',3,4,'Life Sciences',1,5,4,'Female',56,3,1,'Research Scientist',3,'Married',2909,23159,1,'Y','Yes',11,3,3,80,0,8,3,3,8,7,3,0),
+
+(27,'No','Travel_Rarely',591,'Research & Development',2,1,'Medical',1,7,1,'Male',40,3,1,'Laboratory Technician',2,'Married',3468,16632,9,'Y','No',12,3,4,80,1,6,3,3,2,2,2,2);
+
+-- =====================================================
+-- VIEW COMPLETE DATA
+-- =====================================================
+
+SELECT * 
+FROM Employee_Attrition;
+
+-- =====================================================
+-- TOTAL EMPLOYEES
+-- =====================================================
+
+SELECT COUNT(*) AS Total_Employees
+FROM Employee_Attrition;
+
+-- =====================================================
+-- TOTAL ATTRITION
+-- =====================================================
+
+SELECT COUNT(*) AS Employees_Left
+FROM Employee_Attrition
+WHERE Attrition = 'Yes';
+
+-- =====================================================
+-- ATTRITION RATE
+-- =====================================================
+
+SELECT 
+ROUND(
+(COUNT(CASE WHEN Attrition='Yes' THEN 1 END) * 100.0)
+/ COUNT(*),
+2
+) AS Attrition_Rate
+FROM Employee_Attrition;
+
+-- =====================================================
+-- EMPLOYEE DISTRIBUTION BY DEPARTMENT
+-- =====================================================
+
+SELECT 
+Department,
+COUNT(*) AS Total_Employees
+FROM Employee_Attrition
+GROUP BY Department
+ORDER BY Total_Employees DESC;
+
+-- =====================================================
+-- ATTRITION BY DEPARTMENT
+-- =====================================================
+
+SELECT 
+Department,
+COUNT(*) AS Employees_Left
+FROM Employee_Attrition
+WHERE Attrition = 'Yes'
+GROUP BY Department
+ORDER BY Employees_Left DESC;
+
+-- =====================================================
+-- GENDER DISTRIBUTION
+-- =====================================================
+
+SELECT 
+Gender,
+COUNT(*) AS Total_Employees
+FROM Employee_Attrition
+GROUP BY Gender;
+
+-- =====================================================
+-- ATTRITION BY GENDER
+-- =====================================================
+
+SELECT 
+Gender,
+COUNT(*) AS Employees_Left
+FROM Employee_Attrition
+WHERE Attrition = 'Yes'
+GROUP BY Gender;
+
+-- =====================================================
+-- JOB ROLE DISTRIBUTION
+-- =====================================================
+
+SELECT 
+JobRole,
+COUNT(*) AS Total_Employees
+FROM Employee_Attrition
+GROUP BY JobRole
+ORDER BY Total_Employees DESC;
+
+-- =====================================================
+-- TOP JOB ROLES WITH ATTRITION
+-- =====================================================
+
+SELECT 
+JobRole,
+COUNT(*) AS Employees_Left
+FROM Employee_Attrition
+WHERE Attrition = 'Yes'
+GROUP BY JobRole
+ORDER BY Employees_Left DESC;
+
+-- =====================================================
+-- MONTHLY INCOME ANALYSIS
+-- =====================================================
+
+SELECT 
+AVG(MonthlyIncome) AS Average_Income,
+MAX(MonthlyIncome) AS Highest_Income,
+MIN(MonthlyIncome) AS Lowest_Income
+FROM Employee_Attrition;
+
+-- =====================================================
+-- HIGH INCOME EMPLOYEES
+-- =====================================================
+
+SELECT 
+EmployeeNumber,
+JobRole,
+MonthlyIncome
+FROM Employee_Attrition
+ORDER BY MonthlyIncome DESC;
+
+-- =====================================================
+-- LOW INCOME EMPLOYEES
+-- =====================================================
+
+SELECT 
+EmployeeNumber,
+JobRole,
+MonthlyIncome
+FROM Employee_Attrition
+ORDER BY MonthlyIncome ASC;
+
+-- =====================================================
+-- OVERTIME DISTRIBUTION
+-- =====================================================
+
+SELECT 
+OverTime,
+COUNT(*) AS Total_Employees
+FROM Employee_Attrition
+GROUP BY OverTime;
+
+-- =====================================================
+-- OVERTIME VS ATTRITION
+-- =====================================================
+
+SELECT 
+OverTime,
+COUNT(*) AS Employees_Left
+FROM Employee_Attrition
+WHERE Attrition = 'Yes'
+GROUP BY OverTime;
+
+-- =====================================================
+-- JOB SATISFACTION ANALYSIS
+-- =====================================================
+
+SELECT 
+JobSatisfaction,
+COUNT(*) AS Employees
+FROM Employee_Attrition
+GROUP BY JobSatisfaction
+ORDER BY JobSatisfaction;
+
+-- =====================================================
+-- WORK LIFE BALANCE ANALYSIS
+-- =====================================================
+
+SELECT 
+WorkLifeBalance,
+COUNT(*) AS Employees
+FROM Employee_Attrition
+GROUP BY WorkLifeBalance
+ORDER BY WorkLifeBalance;
+
+-- =====================================================
+-- ENVIRONMENT SATISFACTION ANALYSIS
+-- =====================================================
+
+SELECT 
+EnvironmentSatisfaction,
+COUNT(*) AS Employees
+FROM Employee_Attrition
+GROUP BY EnvironmentSatisfaction
+ORDER BY EnvironmentSatisfaction;
+
+-- =====================================================
+-- BUSINESS TRAVEL ANALYSIS
+-- =====================================================
+
+SELECT 
+BusinessTravel,
+COUNT(*) AS Employees
+FROM Employee_Attrition
+GROUP BY BusinessTravel;
+
+-- =====================================================
+-- EDUCATION FIELD ANALYSIS
+-- =====================================================
+
+SELECT 
+EducationField,
+COUNT(*) AS Employees
+FROM Employee_Attrition
+GROUP BY EducationField
+ORDER BY Employees DESC;
+
+-- =====================================================
+-- MARITAL STATUS ANALYSIS
+-- =====================================================
+
+SELECT 
+MaritalStatus,
+COUNT(*) AS Employees
+FROM Employee_Attrition
+GROUP BY MaritalStatus;
+
+-- =====================================================
+-- YEARS AT COMPANY ANALYSIS
+-- =====================================================
+
+SELECT 
+AVG(YearsAtCompany) AS Average_Years,
+MAX(YearsAtCompany) AS Maximum_Years,
+MIN(YearsAtCompany) AS Minimum_Years
+FROM Employee_Attrition;
+
+-- =====================================================
+-- TOTAL WORKING YEARS ANALYSIS
+-- =====================================================
+
+SELECT 
+AVG(TotalWorkingYears) AS Average_Working_Years,
+MAX(TotalWorkingYears) AS Maximum_Working_Years,
+MIN(TotalWorkingYears) AS Minimum_Working_Years
+FROM Employee_Attrition;
+
+-- =====================================================
+-- PERFORMANCE RATING ANALYSIS
+-- =====================================================
+
+SELECT 
+PerformanceRating,
+COUNT(*) AS Employees
+FROM Employee_Attrition
+GROUP BY PerformanceRating;
+
+-- =====================================================
+-- SALARY HIKE ANALYSIS
+-- =====================================================
+
+SELECT 
+AVG(PercentSalaryHike) AS Average_Salary_Hike,
+MAX(PercentSalaryHike) AS Highest_Salary_Hike,
+MIN(PercentSalaryHike) AS Lowest_Salary_Hike
+FROM Employee_Attrition;
+
+-- =====================================================
+-- STOCK OPTION ANALYSIS
+-- =====================================================
+
+SELECT 
+StockOptionLevel,
+COUNT(*) AS Employees
+FROM Employee_Attrition
+GROUP BY StockOptionLevel;
+
+-- =====================================================
+-- TRAINING ANALYSIS
+-- =====================================================
+
+SELECT 
+AVG(TrainingTimesLastYear) AS Average_Training
+FROM Employee_Attrition;
+
+-- =====================================================
+-- EMPLOYEES WITH MORE THAN 5 YEARS
+-- =====================================================
+
+SELECT 
+EmployeeNumber,
+JobRole,
+YearsAtCompany
+FROM Employee_Attrition
+WHERE YearsAtCompany > 5;
+
+-- =====================================================
+-- EMPLOYEES WORKING OVERTIME
+-- =====================================================
+
+SELECT 
+EmployeeNumber,
+JobRole,
+OverTime
+FROM Employee_Attrition
+WHERE OverTime = 'Yes';
+
+-- =====================================================
+-- EMPLOYEES WITH LOW JOB SATISFACTION
+-- =====================================================
+
+SELECT 
+EmployeeNumber,
+JobRole,
+JobSatisfaction
+FROM Employee_Attrition
+WHERE JobSatisfaction <= 2;
+
+-- =====================================================
+-- EMPLOYEES WHO LEFT THE COMPANY
+-- =====================================================
+
+SELECT *
+FROM Employee_Attrition
+WHERE Attrition = 'Yes';
+
+-- =====================================================
+-- END OF PROJECT
+-- =====================================================
