@@ -1,8 +1,6 @@
 -- =====================================================
 -- HR EMPLOYEE ATTRITION DATABASE PROJECT
 -- =====================================================
-
--
 -- USE DATABASE
 USE HR_Attrition_DB;
 
@@ -41,7 +39,6 @@ USE HR_Attrition_DB;
     YearsInCurrentRole INT,
     YearsSinceLastPromotion INT,
     YearsWithCurrManager INT
-);
 
 -- =====================================================
 -- INSERT DATA
