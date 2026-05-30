@@ -8,13 +8,11 @@ The dataset helps analysts identify factors affecting employee retention, job sa
 Dataset Purpose
 
 The main goal of this dataset is to:
-
 Analyze employee turnover
 Identify causes of attrition
 Understand employee behavior
 Improve workforce retention strategies
 Support HR decision-making using data
-
 
 Key Insights
 Employees working overtime showed higher attrition rates.
